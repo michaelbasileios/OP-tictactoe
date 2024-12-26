@@ -30,3 +30,18 @@ function Gameboard() {
 
     return {getBoard, markSquare, renderBoard};
 }
+
+function Square() {
+    let value = 0;
+
+    const addMark = (player) => {
+        value = player;
+    };
+
+    const getValue = () => value;
+
+    return {
+        addMark,
+        getValue
+    };
+}
