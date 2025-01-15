@@ -45,3 +45,48 @@ function Square() {
         getValue
     };
 }
+
+function GameController(playerOneName = "Player One", playerTwoName = "Player Two") {
+    const board = Gameboard();
+
+    const players = [
+        {
+            name: playerOneName,
+            mark: 1
+        },
+        {
+            name: playerTwoName,
+            mark: 2
+        }
+    ];
+
+    let activePlayer = players[0];
+
+    const switchPlayerTurn = () => {
+        activePlayer = activePlayer === players[0] ? players[1] : player[0];
+    };
+    const getActivePlayer = () => activePlayer;
+
+    const renderNewRound = () => {
+        board.renderBoard();
+        console.log(`${getActivePlayer().name}'s turn.`);
+    };
+
+    const playRound = (row, column) => {
+        console.log(
+            `Adding ${getActivePlayer().name}'s mark to row ${row} column ${column}`
+        );
+        board.markSquare(column, getActivePlayer().mark);
+
+        // ADD WIN LOGIC HERE
+
+        switchPlayerTurn();
+        renderNewRound();
+    };
+
+    renderNewRound();
+
+    return {
+        playRound, getActivePlayer, getBoard: board.getBoard
+    };
+}
