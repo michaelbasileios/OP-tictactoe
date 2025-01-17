@@ -11,6 +11,10 @@ body {
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     height: 100vh;
+    display: grid;
+    grid-template-rows: 1fr 2fr 1fr;
+    place-content: center;
+    place-items: center;
 }
 img, picture, video, canvas, svg {
     display: block;
@@ -21,7 +25,14 @@ input, button, textarea, select {
 }
 p, h1, h2, h3, h4, h5, h6 {
     overflow-wrap: break-word;
+    text-align: center;
 }
 #root, #__next {
     isolation: isolate;
+}
+
+#gameboard {
+    border: solid black;
+    height: 100%;
+    width: 100%;
 }
