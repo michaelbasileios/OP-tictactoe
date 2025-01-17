@@ -1,32 +1,42 @@
 const Gameboard = (() => {
-    const gameboard = document.querySelector('#gameboard');
+    const gameBoardHTML = document.querySelector('#gameboard');
 
-    const board = ["", "", "", "", "", "", "", "", ""];
+    let board = ["", "", "", "", "", "", "", "", ""];
 
     const getBoard = () => board;
 
-    // const markSquare = (column, player) => {
-    //     const availableSquares = board.filter((row) => 
-    //     row[column].getValue() === 0).map(row => row[column]);
-
-    //     if(!availableSquares.length) return;
-
-    //     const lowestRow = availableSquares.length - 1;
-    //     board[lowestRow][column].addMark(player);
-    // };
-
     const renderBoard = () => {
-        board.forEach((cell, index) => {
-            gameboard.innerHTML += `<div class = "board-cell" data-index:${index}></div`;
+        board.forEach((square, index) => {
+            gameBoardHTML.innerHTML += 
+            `<div class = "board-cell" data-index:${index}>${square}</div`;
         })
     };
 
     return {getBoard, renderBoard};
 })();
 
-function createPlayer (name, mark) {
-    return {name, mark};
-}
+//GAME CONTROLLER
+const GameController = (() => {
+    const createPlayer = (name, mark) => {
+        return {name, mark};
+    }
+
+    const gameStart = () => {
+        Gameboard.renderBoard();
+    }
+
+    return {
+        gameStart
+    }
+})();
+
+
+//SCREEN CONTROLLER
+const ScreenController = (() => {
+    const startBtn = document.querySelector("#start-button");
+    startBtn.addEventListener("click", () => GameController.gameStart());
+})();
+
 
 // function Square() {
 //     let value = 0;
