@@ -1,6 +1,7 @@
-function Gameboard() {
-    
-    const board = [];
+const Gameboard = (() => {
+    const gameboard = document.querySelector('#gameboard');
+
+    const board = ["", "", "", "", "", "", "", "", ""];
 
     const getBoard = () => board;
 
@@ -14,14 +15,14 @@ function Gameboard() {
     //     board[lowestRow][column].addMark(player);
     // };
 
-    // const renderBoard = () => {
-    //     const boardWithMarks = board.map((row) =>
-    //     row.map((square) = square.getValue()))
-    //     console.log(boardWithMarks);
-    // };
+    const renderBoard = () => {
+        board.forEach((cell, index) => {
+            gameboard.innerHTML += `<div class = "board-cell" data-index:${index}></div`;
+        })
+    };
 
-    // return {getBoard, markSquare, renderBoard};
-}
+    return {getBoard, renderBoard};
+})();
 
 function createPlayer (name, mark) {
     return {name, mark};

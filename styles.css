@@ -38,3 +38,8 @@ p, h1, h2, h3, h4, h5, h6 {
     display: grid;
     grid-template: repeat(3, 1fr) / repeat(3, 1fr);
 }
+
+.board-cell {
+    border: solid red;
+    text-align: center;
+}
