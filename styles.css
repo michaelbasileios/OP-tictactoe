@@ -32,14 +32,13 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 #gameboard {
-    border: solid black;
     height: 100%;
     width: 100%;
     display: grid;
     grid-template: repeat(3, 1fr) / repeat(3, 1fr);
 }
 
-.board-cell {
-    border: solid red;
+.board-square {
+    border: 2px solid red;
     text-align: center;
 }
