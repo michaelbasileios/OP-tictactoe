@@ -39,8 +39,16 @@ const GameController = (() => {
             createPlayer(document.querySelector("#player2").value, "O")
         ];
         activePlayer = players[0];
-        console.log(players[0]);
         gameOver = false;
+        Gameboard.renderBoard();
+    }
+
+    const gameRestart = () => {
+        for (i = 0; i < board.length; i++) {
+            board[i] = "";
+        }
+        players = [];
+        gameStart();
         Gameboard.renderBoard();
     }
 
@@ -52,7 +60,7 @@ const GameController = (() => {
         activePlayer === players[0] ? activePlayer = players[1] : activePlayer = players[0];
     }
 
-    return {gameStart, clickHandle};
+    return {gameStart, gameRestart, clickHandle};
 })();
 
 
