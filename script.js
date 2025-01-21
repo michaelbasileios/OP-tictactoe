@@ -26,12 +26,14 @@ const GameController = (() => {
     const createPlayer = (name, mark) => {
         return {name, mark};
     }
+    let board = Gameboard.getBoard();
     let activePlayer; 
     let gameOver;
+    let players = [];
     
     
     const gameStart = () => {
-        let players = [
+        players = [
             createPlayer(document.querySelector("#player1").value, "X"),
             createPlayer(document.querySelector("#player2").value, "O")
         ];
@@ -42,8 +44,13 @@ const GameController = (() => {
     }
 
     const clickHandle = (square) => {
-        console.log(`Square Number ${square.dataset.index}`);
-        // activePlayer === players[0] ? activePlayer === players[1] : activePlayer === players[0];
+        let arrayIndex = square.dataset.index;
+        board.splice(arrayIndex, 1, activePlayer.mark);
+        console.log(board);
+        // console.log(activePlayer);
+        // console.log(`Mark: ${activePlayer.mark}`);
+        // console.log(arrayIndex);
+        activePlayer === players[0] ? activePlayer = players[1] : activePlayer = players[0];
     }
 
     return {gameStart, clickHandle};
