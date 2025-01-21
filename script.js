@@ -1,15 +1,16 @@
 const Gameboard = (() => {
-    const gameBoardHTML = document.querySelector('#gameboard');
+    const gameBoard = document.querySelector('#gameboard');
 
     let board = ["", "", "", "", "", "", "", "", ""];
 
     const getBoard = () => board;
 
     const renderBoard = () => {
-        board.forEach((square, index) => {
-            gameBoardHTML.innerHTML += 
-            `<div class="board-square" data-index=${index}>${square}</div`;
+        let boardHTML = '';
+        board.forEach((square, index) => { 
+            boardHTML += `<div class="board-square" data-index=${index}>${square}</div>`;
         })
+        gameBoard.innerHTML = boardHTML;
         const squares = document.querySelectorAll(".board-square");
         squares.forEach((square) => {
             square.addEventListener("click", () => {
@@ -46,6 +47,7 @@ const GameController = (() => {
     const clickHandle = (square) => {
         let arrayIndex = square.dataset.index;
         board.splice(arrayIndex, 1, activePlayer.mark);
+        Gameboard.renderBoard();
         console.log(board);
         // console.log(activePlayer);
         // console.log(`Mark: ${activePlayer.mark}`);
