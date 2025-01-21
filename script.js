@@ -13,7 +13,7 @@ const Gameboard = (() => {
         const squares = document.querySelectorAll(".board-square");
         squares.forEach((square) => {
             square.addEventListener("click", () => {
-                console.log(`Square Number ${square.dataset.index}`);
+                GameController.clickHandle(square);
             })
         })
     };
@@ -26,21 +26,27 @@ const GameController = (() => {
     const createPlayer = (name, mark) => {
         return {name, mark};
     }
-    let players = [
-        createPlayer(document.querySelector("#player1").value, "X"),
-        createPlayer(document.querySelector("#player2").value, "O")
-    ];
-    let activePlayer = 0;
-    let gameOver = false;
+    let activePlayer; 
+    let gameOver;
     
     
     const gameStart = () => {
+        let players = [
+            createPlayer(document.querySelector("#player1").value, "X"),
+            createPlayer(document.querySelector("#player2").value, "O")
+        ];
+        activePlayer = players[0];
+        console.log(players[0]);
+        gameOver = false;
         Gameboard.renderBoard();
     }
 
-    return {
-        gameStart
+    const clickHandle = (square) => {
+        console.log(`Square Number ${square.dataset.index}`);
+        // activePlayer === players[0] ? activePlayer === players[1] : activePlayer === players[0];
     }
+
+    return {gameStart, clickHandle};
 })();
 
 
@@ -49,6 +55,7 @@ const ScreenController = (() => {
     const startBtn = document.querySelector("#start-button");
     const restartBtn = document.querySelector("#restart-button");
     startBtn.addEventListener("click", () => GameController.gameStart());
+    restartBtn.addEventListener("click", () => GameController.gameRestart());
 })();
 
 
