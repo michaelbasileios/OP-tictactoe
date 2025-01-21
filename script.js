@@ -6,7 +6,7 @@ const Gameboard = (() => {
     const getBoard = () => board;
 
     const renderBoard = () => {
-        let boardHTML = '';
+        let boardHTML = ''; //This variable is important because otherwise we end up creating more squares than there are elements in the array on subsequent calls of the render function.
         board.forEach((square, index) => { 
             boardHTML += `<div class="board-square" data-index=${index}>${square}</div>`;
         })
@@ -49,9 +49,6 @@ const GameController = (() => {
         board.splice(arrayIndex, 1, activePlayer.mark);
         Gameboard.renderBoard();
         console.log(board);
-        // console.log(activePlayer);
-        // console.log(`Mark: ${activePlayer.mark}`);
-        // console.log(arrayIndex);
         activePlayer === players[0] ? activePlayer = players[1] : activePlayer = players[0];
     }
 

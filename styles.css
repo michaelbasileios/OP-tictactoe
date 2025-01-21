@@ -40,5 +40,7 @@ p, h1, h2, h3, h4, h5, h6 {
 
 .board-square {
     border: 2px solid red;
-    text-align: center;
+    font: 100px bolder;
+    display: grid;
+    place-items: center;
 }
