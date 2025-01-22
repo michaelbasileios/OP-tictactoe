@@ -31,6 +31,8 @@ const GameController = (() => {
     let activePlayer; 
     let gameOver;
     let players = [];
+
+    const getActivePlayer = () => activePlayer;
     
     
     const gameStart = () => {
@@ -41,6 +43,7 @@ const GameController = (() => {
         activePlayer = players[0];
         gameOver = false;
         Gameboard.renderBoard();
+        ScreenController.displayActivePlayer();
     }
 
     const gameRestart = () => {
@@ -52,17 +55,21 @@ const GameController = (() => {
         Gameboard.renderBoard();
     }
 
+    const switchPlayerTurn = () => {
+        activePlayer === players[0] ? activePlayer = players[1] : activePlayer = players[0];
+    }
+
     const clickHandle = (square) => {
         let arrayIndex = square.dataset.index;
         if(board[arrayIndex] === "") {
             board.splice(arrayIndex, 1, activePlayer.mark);
         } else return;
         Gameboard.renderBoard();
-        console.log(board);
-        activePlayer === players[0] ? activePlayer = players[1] : activePlayer = players[0];
+        switchPlayerTurn();
+        ScreenController.displayActivePlayer();
     }
 
-    return {gameStart, gameRestart, clickHandle};
+    return {gameStart, gameRestart, clickHandle, getActivePlayer};
 })();
 
 
@@ -70,8 +77,15 @@ const GameController = (() => {
 const ScreenController = (() => {
     const startBtn = document.querySelector("#start-button");
     const restartBtn = document.querySelector("#restart-button");
+    const messageDiv = document.querySelector("#message");
     startBtn.addEventListener("click", () => GameController.gameStart());
     restartBtn.addEventListener("click", () => GameController.gameRestart());
+
+    const displayActivePlayer = () => {
+        messageDiv.innerHTML = `${GameController.getActivePlayer().name}'s turn`;
+    }
+
+    return {displayActivePlayer};
 })();
 
 

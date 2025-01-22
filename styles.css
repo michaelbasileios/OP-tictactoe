@@ -12,7 +12,7 @@ body {
     -webkit-font-smoothing: antialiased;
     height: 100vh;
     display: grid;
-    grid-template-rows: 1fr 2fr 1fr;
+    grid-template-rows: 50px 1fr 2fr 1fr;
     place-content: center;
     place-items: center;
 }
@@ -43,4 +43,9 @@ p, h1, h2, h3, h4, h5, h6 {
     font: 100px bolder;
     display: grid;
     place-items: center;
+}
+
+#message {
+    text-align: center;
+    font-weight: bold;
 }
