@@ -54,7 +54,9 @@ const GameController = (() => {
 
     const clickHandle = (square) => {
         let arrayIndex = square.dataset.index;
-        board.splice(arrayIndex, 1, activePlayer.mark);
+        if(board[arrayIndex] === "") {
+            board.splice(arrayIndex, 1, activePlayer.mark);
+        } else return;
         Gameboard.renderBoard();
         console.log(board);
         activePlayer === players[0] ? activePlayer = players[1] : activePlayer = players[0];
