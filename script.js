@@ -5,27 +5,6 @@ const Gameboard = (() => {
     let board = ["", "", "", "", "", "", "", "", ""];
     const getBoard = () => board;
 
-    const winCombinations = [
-        [0, 1, 2], // Top row
-        [3, 4, 5], // Middle row
-        [6, 7, 8], // Bottom row
-        [0, 3, 6], // Left column
-        [1, 4, 7], // Middle column
-        [2, 5, 8], // Right column
-        [0, 4, 8], // Diagonal top-left to bottom-right
-        [2, 4, 6]  // Diagonal top-right to bottom-left
-    ];
-
-    const winCheck = () => {
-        function indexFilter(boardArray, mark) {
-            let arrayOfIndexes = 
-            boardArray.map((element, index) => element === mark ? index : null).filter(indexElement => indexElement !== null);
-            return arrayOfIndexes;
-        } 
-        let filterX = indexFilter(board, "X");
-        let filterO = indexFilter(board, "O");
-    }
-
     const renderBoard = () => {
         let boardHTML = ''; //This variable is important because otherwise we end up creating more squares than there are elements in the array on subsequent calls of the render function.
         board.forEach((square, index) => { 
@@ -52,6 +31,16 @@ const GameController = (() => {
     let activePlayer; 
     let gameOver;
     let players = [];
+    const winCombinations = [
+        [0, 1, 2], // Top row
+        [3, 4, 5], // Middle row
+        [6, 7, 8], // Bottom row
+        [0, 3, 6], // Left column
+        [1, 4, 7], // Middle column
+        [2, 5, 8], // Right column
+        [0, 4, 8], // Diagonal top-left to bottom-right
+        [2, 4, 6]  // Diagonal top-right to bottom-left
+    ];
 
     const getActivePlayer = () => activePlayer;
     
@@ -86,8 +75,29 @@ const GameController = (() => {
             board.splice(arrayIndex, 1, activePlayer.mark);
         } else return;
         Gameboard.renderBoard();
+        winCheck();
         switchPlayerTurn();
         ScreenController.displayActivePlayer();
+    }
+
+    const winCheck = () => {
+        function indexFilter(boardArray, mark) {
+            let arrayOfIndexes = 
+            boardArray.map((element, index) => element === mark ? index : null).filter(indexElement => indexElement !== null);
+            return arrayOfIndexes;
+        } 
+        let indexesOfX = indexFilter(Gameboard.getBoard(), "X").join('');
+        let indexesOfO = indexFilter(Gameboard.getBoard(), "O").join('');
+
+        // console.log(indexesOfX, indexesOfO);
+
+        winCombinations.forEach(combination => {
+            if(combination.join('') === indexesOfX) {
+                console.log("Player 1 wins!");
+            } else if(combination.join('') === indexesOfO) {
+                console.log("Player 2 wins!");
+            } 
+          })
     }
 
     return {gameStart, gameRestart, clickHandle, getActivePlayer};
