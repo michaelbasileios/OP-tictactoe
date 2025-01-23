@@ -1,9 +1,30 @@
+//GAMEBOARD
 const Gameboard = (() => {
     const gameBoard = document.querySelector('#gameboard');
 
     let board = ["", "", "", "", "", "", "", "", ""];
-
     const getBoard = () => board;
+
+    const winCombinations = [
+        [0, 1, 2], // Top row
+        [3, 4, 5], // Middle row
+        [6, 7, 8], // Bottom row
+        [0, 3, 6], // Left column
+        [1, 4, 7], // Middle column
+        [2, 5, 8], // Right column
+        [0, 4, 8], // Diagonal top-left to bottom-right
+        [2, 4, 6]  // Diagonal top-right to bottom-left
+    ];
+
+    const winCheck = () => {
+        function indexFilter(boardArray, mark) {
+            let arrayOfIndexes = 
+            boardArray.map((element, index) => element === mark ? index : null).filter(indexElement => indexElement !== null);
+            return arrayOfIndexes;
+        } 
+        let filterX = indexFilter(board, "X");
+        let filterO = indexFilter(board, "O");
+    }
 
     const renderBoard = () => {
         let boardHTML = ''; //This variable is important because otherwise we end up creating more squares than there are elements in the array on subsequent calls of the render function.
