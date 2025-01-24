@@ -65,9 +65,12 @@ const GameController = (() => {
             board.splice(arrayIndex, 1, activePlayer.mark);
         } else return;
         Gameboard.renderBoard();
-        if(winCheck(Gameboard.getBoard())) {
-            console.log(`${activePlayer.name} won!`);
-        }
+        if(winCheck(board)) {
+            setTimeout(() => {
+                alert(`${activePlayer.name} won!`);
+                gameRestart();
+            }, 0)
+        } else 
         switchPlayerTurn();
         ScreenController.displayActivePlayer();
     }
@@ -110,7 +113,7 @@ const GameController = (() => {
         //   })
     }
 
-    return {gameStart, gameRestart, clickHandle, getActivePlayer, winCheck};
+    return {gameStart, gameRestart, clickHandle, getActivePlayer};
 })();
 
 
