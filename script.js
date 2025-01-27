@@ -68,14 +68,21 @@ const GameController = (() => {
             board.splice(arrayIndex, 1, activePlayer.mark);
         } else return;
         Gameboard.renderBoard();
-        if(winCheck(board)) {
+        if(tieCheck(board)) {
+            gameOver = true;
+            setTimeout(() => {
+                alert("It's a tie!");
+                gameRestart();
+            }, 0);
+        } else if(winCheck(board)) {
             gameOver = true;
             wins[activePlayerIndex]++;
             setTimeout(() => {
                 alert(`${activePlayer.name} won!`);
                 gameRestart();
             }, 0)
-        } else 
+        } 
+        else 
         switchPlayerTurn();
         ScreenController.displayActivePlayer();
     }
@@ -99,13 +106,9 @@ const GameController = (() => {
         } return false;
     }
 
-    // const tieCheck = (board) => {
-    //     board.forEach((mark) => {
-    //         if(board[mark] && !winCheck(board)) {
-    //             return true;
-    //         }
-    //     })
-    // }
+    const tieCheck = (board) => {
+       return board.every(mark => mark) && !winCheck(board);
+    }
     return {gameStart, gameRestart, clickHandle, getActivePlayer};
 })();
 
