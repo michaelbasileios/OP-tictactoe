@@ -12,7 +12,7 @@ body {
     -webkit-font-smoothing: antialiased;
     height: 100vh;
     display: grid;
-    grid-template-rows: 50px 1fr 2fr 1fr;
+    grid-template-rows: 10em 5em 2fr 1fr 10em;
     place-content: center;
     place-items: center;
 }

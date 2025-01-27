@@ -32,9 +32,12 @@ const GameController = (() => {
     let activePlayerIndex;
     let gameOver;
     let players = [];
+    let rounds = 0;
     let wins = [0, 0];
 
     const getActivePlayer = () => activePlayer;
+    const getRounds = () => rounds;
+    const getWins = () => wins;
     
     
     const gameStart = () => {
@@ -46,6 +49,7 @@ const GameController = (() => {
         gameOver = false;
         Gameboard.renderBoard();
         ScreenController.displayActivePlayer();
+        ScreenController.displayScore();
     }
 
     const gameRestart = () => {
@@ -70,12 +74,14 @@ const GameController = (() => {
         Gameboard.renderBoard();
         if(tieCheck(board)) {
             gameOver = true;
+            rounds++;
             setTimeout(() => {
                 alert("It's a tie!");
                 gameRestart();
             }, 0);
         } else if(winCheck(board)) {
             gameOver = true;
+            rounds++;
             wins[activePlayerIndex]++;
             setTimeout(() => {
                 alert(`${activePlayer.name} won!`);
@@ -109,7 +115,7 @@ const GameController = (() => {
     const tieCheck = (board) => {
        return board.every(mark => mark) && !winCheck(board);
     }
-    return {gameStart, gameRestart, clickHandle, getActivePlayer};
+    return {gameStart, gameRestart, clickHandle, getActivePlayer, getRounds, getWins};
 })();
 
 
@@ -118,6 +124,7 @@ const ScreenController = (() => {
     const startBtn = document.querySelector("#start-button");
     const restartBtn = document.querySelector("#restart-button");
     const messageDiv = document.querySelector("#message");
+    const resultDisplay = document.querySelector("#result-display");
     startBtn.addEventListener("click", () => GameController.gameStart());
     restartBtn.addEventListener("click", () => GameController.gameRestart());
 
@@ -125,7 +132,14 @@ const ScreenController = (() => {
         messageDiv.innerHTML = `${GameController.getActivePlayer().name}'s turn`;
     }
 
-    return {displayActivePlayer};
+    const displayScore = () => {
+        scoreDiv = `<h2>Player 1 score: ${GameController.getWins()[0]}</h2>
+                    <h2>Player 2 score: ${GameController.getWins()[1]}</h2>
+                    <h2>Round: </h2>`;
+        resultDisplay.innerHTML = scoreDiv;
+    }
+
+    return {displayActivePlayer, displayScore};
 })();
 
 
