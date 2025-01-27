@@ -129,13 +129,13 @@ const ScreenController = (() => {
     restartBtn.addEventListener("click", () => GameController.gameRestart());
 
     const displayActivePlayer = () => {
-        messageDiv.innerHTML = `${GameController.getActivePlayer().name}'s turn`;
+        messageDiv.innerHTML = `<h2>${GameController.getActivePlayer().name}'s turn</h2>`;
     }
 
     const displayScore = () => {
         scoreDiv = `<h2>Player 1 score: ${GameController.getWins()[0]}</h2>
                     <h2>Player 2 score: ${GameController.getWins()[1]}</h2>
-                    <h2>Round: </h2>`;
+                    <h2>Round: ${GameController.getRounds()}</h2>`;
         resultDisplay.innerHTML = scoreDiv;
     }
 
