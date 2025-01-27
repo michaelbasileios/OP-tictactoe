@@ -29,8 +29,10 @@ const GameController = (() => {
     }
     let board = Gameboard.getBoard();
     let activePlayer; 
+    let activePlayerIndex;
     let gameOver;
     let players = [];
+    let wins = [0, 0];
 
     const getActivePlayer = () => activePlayer;
     
@@ -57,6 +59,7 @@ const GameController = (() => {
 
     const switchPlayerTurn = () => {
         activePlayer === players[0] ? activePlayer = players[1] : activePlayer = players[0];
+        activePlayerIndex = activePlayer === players[0] ? 0 : 1;
     }
 
     const clickHandle = (square) => {
@@ -66,6 +69,8 @@ const GameController = (() => {
         } else return;
         Gameboard.renderBoard();
         if(winCheck(board)) {
+            gameOver = true;
+            wins[activePlayerIndex]++;
             setTimeout(() => {
                 alert(`${activePlayer.name} won!`);
                 gameRestart();
@@ -92,27 +97,15 @@ const GameController = (() => {
                 return true;
             }
         } return false;
-        // function indexFilter(boardArray, mark) {
-        //     let arrayOfIndexes = 
-        //     boardArray.map((element, index) => element === mark ? index : null).filter(indexElement => indexElement !== null);
-        //     return arrayOfIndexes;
-        // } 
-        // let indexesOfX = indexFilter(board, "X").join('');
-        // let indexesOfO = indexFilter(board, "O").join('');
-
-        // // console.log(indexesOfX, indexesOfO);
-
-        // winCombinations.some(combination => {
-        //     if(combination.join('') === indexesOfX) {
-        //         console.log("Player 1 wins!");
-        //         gameOver = true;
-        //     } else if(combination.join('') === indexesOfO) {
-        //         console.log("Player 2 wins!");
-        //         gameOver = true;
-        //     } 
-        //   })
     }
 
+    // const tieCheck = (board) => {
+    //     board.forEach((mark) => {
+    //         if(board[mark] && !winCheck(board)) {
+    //             return true;
+    //         }
+    //     })
+    // }
     return {gameStart, gameRestart, clickHandle, getActivePlayer};
 })();
 
