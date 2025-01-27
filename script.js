@@ -32,8 +32,9 @@ const GameController = (() => {
     let activePlayerIndex;
     let gameOver;
     let players = [];
-    let rounds = 0;
+    let rounds = 1;
     let wins = [0, 0];
+    const resetHTML = document.querySelectorAll('.reset-item');
 
     const getActivePlayer = () => activePlayer;
     const getRounds = () => rounds;
@@ -59,6 +60,13 @@ const GameController = (() => {
         players = [];
         gameStart();
         Gameboard.renderBoard();
+    }
+
+    const gameTotalReset = () => {
+        gameRestart();
+        rounds = 1;
+        wins = [0, 0];
+        resetHTML.forEach(element => element.innerHTML = '');
     }
 
     const switchPlayerTurn = () => {
@@ -115,7 +123,7 @@ const GameController = (() => {
     const tieCheck = (board) => {
        return board.every(mark => mark) && !winCheck(board);
     }
-    return {gameStart, gameRestart, clickHandle, getActivePlayer, getRounds, getWins};
+    return {gameStart, gameRestart, clickHandle, getActivePlayer, getRounds, getWins, gameTotalReset};
 })();
 
 
@@ -126,7 +134,7 @@ const ScreenController = (() => {
     const messageDiv = document.querySelector("#message");
     const resultDisplay = document.querySelector("#result-display");
     startBtn.addEventListener("click", () => GameController.gameStart());
-    restartBtn.addEventListener("click", () => GameController.gameRestart());
+    restartBtn.addEventListener("click", () => GameController.gameTotalReset());
 
     const displayActivePlayer = () => {
         messageDiv.innerHTML = `<h2>${GameController.getActivePlayer().name}'s turn</h2>`;
@@ -141,64 +149,3 @@ const ScreenController = (() => {
 
     return {displayActivePlayer, displayScore};
 })();
-
-
-// function Square() {
-//     let value = 0;
-
-//     const addMark = (player) => {
-//         value = player;
-//     };
-
-//     const getValue = () => value;
-
-//     return {
-//         addMark,
-//         getValue
-//     };
-// }
-
-// function GameController(playerOneName = "Player One", playerTwoName = "Player Two") {
-//     const board = Gameboard();
-
-//     const players = [
-//         {
-//             name: playerOneName,
-//             mark: 1
-//         },
-//         {
-//             name: playerTwoName,
-//             mark: 2
-//         }
-//     ];
-
-//     let activePlayer = players[0];
-
-//     const switchPlayerTurn = () => {
-//         activePlayer = activePlayer === players[0] ? players[1] : player[0];
-//     };
-//     const getActivePlayer = () => activePlayer;
-
-//     const renderNewRound = () => {
-//         board.renderBoard();
-//         console.log(`${getActivePlayer().name}'s turn.`);
-//     };
-
-//     const playRound = (row, column) => {
-//         console.log(
-//             `Adding ${getActivePlayer().name}'s mark to row ${row} column ${column}`
-//         );
-//         board.markSquare(column, getActivePlayer().mark);
-
-//         // ADD WIN LOGIC HERE
-
-//         switchPlayerTurn();
-//         renderNewRound();
-//     };
-
-//     renderNewRound();
-
-//     return {
-//         playRound, getActivePlayer, getBoard: board.getBoard
-//     };
-// }
